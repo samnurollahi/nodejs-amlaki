@@ -1,0 +1,66 @@
+<h1 class="h1 m-3 fs-3 fw-bold">درخواست های ثبت اگهی</h1>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-11">
+      <div class="table-responsive">
+        <table
+          class="table table-sm shadow-sm table-responsive table-striped table-hover"
+        >
+          <thead>
+            <th>اسم فرد</th>
+            <th>شماره فرد</th>
+            <th>تاریخ ثبت</th>
+            <th>عملیات</th>
+          </thead>
+          <tbody class="align-middle">
+            <% for(item of data) {%>
+            <tr>
+              <td><%= item.nameuser %></td>
+              <td><%= item.phoneuser %></td>
+              <td><%= fun(item.createAt) %></td>
+              <td>
+                <a
+                  title="تایید درخواست"
+                  data-id="<%= item.id %>"
+                  class="btn btn-success m-1 d-inline-flex align-items-center justify-content-center accAdvertising"
+                >
+                  <span class="material-symbols-outlined"> done </span>
+                </a>
+                <a
+                title="رد و حذف درخواست"
+                  data-id="<%= item.id %>"
+                  class="btn btn-danger m-1 d-inline-flex align-items-center justify-content-center deleteAdvertising"
+                  ><span class="material-symbols-outlined">delete</span></a
+                >
+                <a
+                  title="نمایش"
+                  href="/<%= item.price ? "sell" : "rent" %>/<%= item.id %>"
+                  class="btn btn-warning m-1 d-inline-flex align-items-center justify-content-center"
+                  ><span class="material-symbols-outlined"> article </span></a
+                >
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      <div class="w-100 d-flex align-items-center justify-content-center">
+        <span
+          id="loader-table"
+          class="loader d-none"
+          style="
+            width: 75px;
+            height: 75px;
+            border-width: 10px;
+            margin: auto;
+            text-align: center;
+          "
+        ></span>
+      </div>
+    </div>
+  </div>
+  <!-- moment -->
+  <script src="/js/jalali-moment.browser.js"></script>
+  <!-- js -->
+  <script src="/js/advertisingAdmin.js"></script>
+</div>

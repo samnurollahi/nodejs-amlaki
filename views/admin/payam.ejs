@@ -1,0 +1,33 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <h1 class="h1 m-3 fs-3 fw-bold">پیام های ارسالی</h1>
+      <div class="table-responsive">
+        <table
+          class="table table-responsive table-bordered table-hover table-striped text-center"
+        >
+          <thead>
+            <tr>
+              <th>نام</th>
+              <th>ایمیل</th>
+              <th>متن</th>
+              <th>زمان</th>
+              <th>عملیات ها</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(item of data) {%>
+            <tr>
+              <th><%= item.name %></th>
+              <th><%= item.email %></th>
+              <th title="<%= item.text %>"><%= item.text.slice(0, 10) + '...' %></th>
+              <th><%= funcDate(item.createAt) %></th>
+              <th><a href="/dashboard/deletePayam/<%= item.id %>" class="badge bg-danger text-decoration-none">حذف</a></th>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

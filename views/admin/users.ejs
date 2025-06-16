@@ -1,0 +1,60 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <h1 class="font-vazir fw-bold fs-2">کاربران</h1>
+      <div class="table-responsive">
+        <table
+          class="table table-responsive table-bordered table-hover table-striped text-center"
+        >
+          <thead>
+            <tr>
+              <th>اسم</th>
+              <th>ایمیل</th>
+              <th>ایمیل تایید شده</th>
+              <th>نقش</th>
+              <th>عملیات ها</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(user of users) {%>
+            <tr>
+              <th><%= user.name %></th>
+              <th><%= user.email %></th>
+              <th><%= user.accEmail ? 'بله' : 'خیر' %></th>
+              <th><%= user.role %></th>
+              <th class="d-flex align-items-center justify-content-around">
+                <% if(user.accEmail) {%>
+                <button class="btn btn-success btn-sm disabled" disabled>
+                  تایید ایمیل بصورت اتوماتیک
+                </button>
+                <% }else {%>
+                <a
+                  class="btn btn-success btn-sm"
+                  href="/dashboard/addEmailUserAuto/<%= user.id %>"
+                >
+                  تایید ایمیل بصورت اتوماتیک
+                </a>
+                <% } %> <% if(user.role == "user") {%>
+                <button
+                  class="btn btn-danger btn-sm btnRemoveUser"
+                  data-id="<%= user.id %>"
+                >
+                  حدف کاربر
+                </button>
+                <% }else{ %>
+                <button class="btn btn-danger btn-sm disabled" disabled>
+                  حدف کاربر
+                </button>
+  
+                <% } %>
+              </th>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/usersBoss.js"></script>
+</section>

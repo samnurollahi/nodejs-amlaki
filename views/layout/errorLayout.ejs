@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.rtl.min.css" />
+
+    <!-- fonts -->
+    <link rel="stylesheet" href="/css/amin.css" />
+    <link rel="stylesheet" href="/css/vazir.css" />
+  </head>
+  <body>
+    <div
+      class="container-fluid d-flex align-items-center justify-content-center user-select-none font-vazir"
+      style="height: 95vh"
+    >
+      <%- body %>
+    </div>
+
+    <!-- bootstrap -->
+    <script src="./js/bootstrap.min.js"></script>
+
+    <!-- user Controller -->
+    <script src="/js/userController.js"></script>
+  </body>
+</html>

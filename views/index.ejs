@@ -1,0 +1,158 @@
+<header class="mt-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-7 col-md-10 m-auto z-1">
+        <h1 class="hl font-vazir fw-bold text-center">مسکن، یک تصمیم کلیدی</h1>
+        <p class="fs-6 font-vazir text-center">
+          خانه دلخواه‌تان را به کمک مشاورین متخصص کلید پیدا کنید.
+        </p>
+        <div
+          class="rounded-2 border font-vazir py-2"
+          style="background: rgba(248, 249, 250, 0.7)"
+        >
+          <ul class="list-unstyled text-center border-bottom py-1">
+            <li
+              class="item-search py-1 text-primary border-bottom border-primary"
+              id="buy"
+            >
+              خرید
+            </li>
+            <li class="item-search py-1" id="rent">رهن و اجاره</li>
+          </ul>
+          <div id="box-search-contect">
+            <form action="/sell" method="get" class="row">
+              <div class="col-10 m-auto">
+                <label class="text-muted form-label" style="font-size: 14px">
+                  شهر یا منطقه مورد نظر شما
+                </label>
+                <input
+                  type="text"
+                  class="input-search border rounded-1"
+                  style="font-size: 14px"
+                  placeholder="مثال: تهران"
+                />
+              </div>
+              <div class="mt-2"></div>
+              <div class="col-10 col-md-4 m-auto position-relative">
+                <label class="text-muted form-label" style="font-size: 14px"
+                  >امکانات که میخواهید</label
+                >
+                <div
+                  onclick="drop(this)"
+                  class="dr d-flex align-items-center justify-content-between border p-2 rounded-2 bg-light-subtle user-select-none"
+                  style="cursor: pointer; font-size: 14px"
+                >
+                  امکانات
+                  <span class="material-symbols-outlined"> expand_more </span>
+                </div>
+                <div
+                  id="conditions"
+                  class="position-absolute start-50 translate-middle-x bg-light-subtle border rounded-2 p-2 mt-1 overflow-auto d-none"
+                  style="width: 86%; height: 200px"
+                ></div>
+              </div>
+              <div class="col-10 col-md-4 m-auto position-relative">
+                <label class="text-muted form-label" style="font-size: 14px"
+                  >شرایط که میخواهید</label
+                >
+                <div
+                  onclick="drop(this)"
+                  class="dr d-flex align-items-center justify-content-between border p-2 rounded-2 bg-light-subtle user-select-none"
+                  style="cursor: pointer; font-size: 14px"
+                >
+                  شرایط
+                  <span class="material-symbols-outlined"> expand_more </span>
+                </div>
+                <div
+                  id="possibilities"
+                  class="position-absolute start-50 translate-middle-x bg-light-subtle border rounded-2 p-2 mt-1 overflow-auto d-none"
+                  style="width: 86%; height: 200px"
+                ></div>
+              </div>
+              <div class="mt-2"></div>
+              <div class="col-10 col-md-4 m-auto">
+                <label class="text-muted form-label" style="font-size: 14px"
+                  >متراژ</label
+                >
+                <input
+                  min="40"
+                  type="number"
+                  style="font-size: 14px; direction: rtl"
+                  class="input-search border rounded-1 min-metrage"
+                  placeholder="حداقل متراژ"
+                />
+              </div>
+              <div class="col-10 col-md-4 m-auto">
+                <br />
+                <input
+                  min="40"
+                  type="number"
+                  style="direction: rtl; font-size: 14px"
+                  class="input-search border rounded-1 max-metrage"
+                  placeholder="حداکثر متراژ"
+                />
+              </div>
+              <div class="mt-2"></div>
+              <div class="col-10 col-md-4 m-auto">
+                <label class="text-muted form-label" style="font-size: 14px"
+                  >قیمت</label
+                >
+                <input
+                  type="number"
+                  style="direction: rtl; font-size: 14px"
+                  class="input-search border rounded-1 min-price"
+                  placeholder="حداقل قیمت"
+                />
+              </div>
+              <div class="col-10 col-md-4 m-auto">
+                <br />
+                <input
+                  type="number"
+                  style="direction: rtl; font-size: 14px"
+                  class="input-search border rounded-1 max-price"
+                  placeholder="حداکثر قیمت"
+                />
+              </div>
+              <div class="mt-3"></div>
+              <div class="col-10 m-auto">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm d-flex align-items-center justify-content-around"
+                  onclick="search()"
+                >
+                  جستو جو
+                  <span class="material-symbols-outlined"> search </span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="font-vazir">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-2 d-flex align-items-center flex-column shadow-sm m-5">
+        <span
+          class="material-symbols-outlined user-select-none text-primary fs-1"
+        >
+          ad
+        </span>
+        <p class="text-muted mb-0">تعداد اگهی</p>
+        <p class="text-primary mb-0" id="ad">0</p>
+      </div>
+      <div class="col-md-2 d-flex align-items-center flex-column shadow-sm m-5">
+        <span
+          class="material-symbols-outlined user-select-none text-primary fs-1"
+        >
+          person
+        </span>
+        <p class="text-muted mb-0">تعداد کاربران</p>
+        <p class="text-primary mb-0" id="user">0</p>
+      </div>
+    </div>
+  </div>
+</section>

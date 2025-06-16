@@ -1,0 +1,354 @@
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+/>
+<section class="mt-5">
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+    #map {
+      margin: auto;
+      overflow: hidden;
+      height: 350px;
+      width: 100%;
+    }
+    .loader {
+      width: 25px;
+      height: 25px;
+      border: 2px solid #fff;
+      border-bottom-color: #000;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <div class="container-fluid">
+    <div
+      class="row p-5 d-flex justify-content-evenly align-items-start position-relative"
+    >
+      <div class="col-12 col-lg-8 font-vazir">
+        <div class="border p-0 rounded-2 overflow-hidden shadow-sm">
+          <swiper-container
+            class="mySwiper w-100"
+            navigation="true"
+            pagination-dynamic-bullets="true"
+          >
+            <% for(img of dataAd.imgs) {%>
+            <swiper-slide>
+              <img src="<%= img %>" alt="" style="width: 100%; height: 500px" />
+            </swiper-slide>
+            <% } %>
+          </swiper-container>
+        </div>
+
+        <div class="border p-3 rounded-2 overflow-hidden shadow-sm mt-5">
+          <h1 class="fw-bold fs-4"><%= dataAd.titlead %></h1>
+          <div class="user-select-none">
+            <div
+              class="badge bg-body-secondary text-dark rounded-pill p-2 me-2"
+              style="cursor: pointer"
+            >
+              <%= dataAd.room %> خوابه
+            </div>
+            <div
+              class="badge bg-body-secondary text-dark rounded-pill p-2 me-2"
+              style="cursor: pointer"
+            >
+              <%= dataAd.life %> سال ساخت
+            </div>
+            <div
+              class="badge bg-body-secondary text-dark rounded-pill p-2 me-2"
+              style="cursor: pointer"
+            >
+              <%= dataAd.type == "apartment" ? "اپارتمان مسکونی" : "ویلا" %>
+            </div>
+          </div>
+          <br />
+          <div>
+            <p class="text-primary mb-0">رهن:</p>
+            <p class="fs-5 fw-bold"><%= separate(dataAd.mortgage) %></p>
+          </div>
+          <div>
+            <p class="text-primary mb-0">اجاره:</p>
+            <p class="fs-5 fw-bold"><%= separate(dataAd.rent) %></p>
+          </div>
+          <div>
+            <p class="text-primary mb-0">متراژ:</p>
+            <p class="fs-5 fw-bold"><%= separate(dataAd.meterage) %></p>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-lg-6 d-inline">
+              <p class="fs-5">امکانات</p>
+              <% for(item of dataAd.possibilities) {%>
+              <span class="d-inline-flex align-items-center user-select-none">
+                <span class="material-symbols-outlined text-success">
+                  done
+                </span>
+                <%= item %>
+              </span>
+              <% } %>
+            </div>
+            <div class="col-lg-6">
+              <p class="fs-5">شرایط</p>
+              <% for(item of dataAd.conditions) {%>
+              <span class="d-inline-flex align-items-center user-select-none">
+                <span class="material-symbols-outlined text-success">
+                  done
+                </span>
+                <%= item %>
+              </span>
+              <% } %>
+            </div>
+          </div>
+          <div class="mt-5">
+            <p class="fs-5 fw-bolder">توضیحات</p>
+
+            <div
+              style="height: 50px; transition: 0.5s"
+              class="overflow-hidden"
+              id="boxDescription"
+            >
+              <p><%= dataAd.description %></p>
+            </div>
+
+            <p
+              class="text-info d-flex align-items-center user-select-none mt-3"
+              style="cursor: pointer"
+              id="description"
+            >
+              نمایش بیشتر
+              <span class="material-symbols-outlined"> expand_more </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="border p-3 rounded-2 overflow-hidden shadow-sm mt-5">
+          <p class="fs-4 d-flex align-items-center user-select-none">
+            <span class="material-symbols-outlined text-danger">
+              pin_drop
+            </span>
+            موقعیت ملک
+          </p>
+          <div
+            class="z-0"
+            id="map"
+            data-x="<%= dataAd.map[0] %>"
+            data-y="<%= dataAd.map[1] %>"
+          ></div>
+        </div>
+      </div>
+      <div class="mt-5 d-lg-none"></div>
+      <div class="col-12 col-lg-3 position-sticky" style="top: 100px">
+        <div class="shadow p-3 rounded-1 border">
+          <div
+            class="rounded-circle d-flex justify-content-center align-items-center m-auto border fs-1 fw-bold"
+            style="width: 100px; height: 100px"
+          >
+            <p><%= userAd.name[0] %></p>
+          </div>
+          <p class="font-vazir mt-2 text-center"><%= userAd.name %></p>
+          <div class="text-center">
+            <p
+              id="btnPhone"
+              class="p-2 rounded-pill w-75 user-select-none btn btn-outline-danger fs-6"
+              style="cursor: pointer"
+              data-id="<%= dataAd._id %>"
+            >
+              09XXXXXXXXX
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="d-flex justify-content-between mt-3 user-select-none font-vazir"
+        >
+          <div
+            id="btnSave"
+            data-id="<%= dataAd.id %>"
+            class="d-flex align-items-center justify-content-center p-2 border rounded-2 bg-body-secondary"
+            style="width: 46%; cursor: pointer"
+          >
+            <span> ذخیره کردن </span>
+            <span class="material-symbols-outlined"> bookmark </span>
+          </div>
+          <div
+            id="btnCopy"
+            class="d-flex align-items-center justify-content-center p-2 border rounded-2 bg-body-secondary"
+            style="width: 46%; cursor: pointer"
+          >
+            <span> کپی لینک اگهی </span>
+            <span class="material-symbols-outlined"> content_copy </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    const element = document.getElementById("map");
+    var map = L.map("map").setView([element.dataset.x, element.dataset.y], 5);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    var marker;
+
+    L.marker([element.dataset.x, element.dataset.y]).addTo(map);
+  </script>
+  <script>
+    const btnDescription = document.getElementById("description");
+    const boxDescription = document.getElementById("boxDescription");
+    const btnPhone = document.getElementById("btnPhone");
+    const btnCopy = document.getElementById("btnCopy");
+    const btnSave = document.getElementById("btnSave");
+
+    let isHeightAuto = false;
+
+    btnDescription.addEventListener("click", () => {
+      if (isHeightAuto) {
+        isHeightAuto = false;
+        btnDescription.innerHTML = `نمایش بیشتر
+              <span class="material-symbols-outlined">
+                expand_more
+                </span>`;
+        boxDescription.style.height = "50px";
+      } else {
+        isHeightAuto = true;
+        btnDescription.innerHTML = `نمایش کمتر 
+              <span class="material-symbols-outlined">
+                expand_less
+                </span>`;
+        boxDescription.style.height = "auto";
+      }
+    });
+
+    btnPhone.addEventListener("click", () => {
+      const xhttp = new XMLHttpRequest();
+
+      xhttp.open("POST", "/getPhoneUser");
+      xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      xhttp.onloadstart = function () {
+        btnPhone.innerHTML = `<span class="loader"></span>`;
+      };
+      xhttp.onloadend = function () {
+        if (xhttp.status == 200) {
+          btnPhone.innerHTML = xhttp.response;
+        } else {
+          btnPhone.innerHTML = "ERROR :(";
+        }
+      };
+
+      xhttp.send(JSON.stringify({ id: btnPhone.dataset.id }));
+    });
+
+    btnCopy.addEventListener("click", () => {
+      navigator.clipboard.writeText(location.href);
+
+      btnCopy.classList.add("border-success");
+      btnCopy.innerHTML = `<span>کپی شد</span>
+      <span class="material-symbols-outlined"> done </span>
+      `;
+    });
+
+    btnSave.addEventListener("click", () => {
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "/saveAd");
+      xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      xhttp.responseType = "json";
+
+      xhttp.onloadstart = function () {
+        btnSave.innerHTML = "<span class='loader'></span>";
+      };
+      xhttp.onloadend = function () {
+        if (xhttp.status == 201 || xhttp.status == 200) {
+          btnSave.classList.add("border-success");
+          btnSave.innerHTML = `<span>ذخیره شد</span>
+        <span class="material-symbols-outlined"> done </span>`;
+        } else {
+          location.href = "/auth";
+        }
+      };
+
+      xhttp.send(JSON.stringify({ idAd: btnSave.dataset.id }));
+    });
+  </script>
+</section>
+
+<section class="mb-5 font-vazir py-1 d-xl-block d-none">
+  <div class="container-fluid">
+    <div class="row px-5">
+      <div class="col-12">
+        <p class="fs-3 fw-bold"><%= title %></p>
+        <div class="swiper mySwiperTow">
+          <div class="swiper-wrapper">
+            <% for(newAd of newAds) {%> <% if(newAd.id != dataAd.id) {%>
+            <div
+              class="swiper-slide bg-white rounded-1 overflow-hidden me-5 pb-2"
+              style="height: auto"
+            >
+              <img
+                src="<%= newAd.imgs[0] %>"
+                class="w-100"
+                style="height: 200px"
+                alt="title"
+              />
+              <div class="px-2 h-50">
+                <h3 class="fw-bold fs-5 mt-2" title="<%= newAd.titlead %>">
+                  <%= newAd.titlead.slice(1, 20) + '...'%>
+                </h3>
+                <p class="mt-3 mb-1">رهن: <%= separate(newAd.mortgage) %></p>
+                <p class="mt-0 mb-1">اجاره: <%= separate(newAd.rent) %></p>
+                <p>شهر: <%= newAd.cities %></p>
+                <a
+                  class="w-100 btn btn-primary fw-bold"
+                  href="/rent/<%= newAd._id %>"
+                  >اطلاعات بیشتر</a
+                >
+              </div>
+            </div>
+            <% } %> <% } %>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- swiper -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  var swiper = new Swiper(".mySwiperTow", {
+    slidesPerView: 5,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+</script>

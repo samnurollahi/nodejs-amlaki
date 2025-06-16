@@ -1,0 +1,114 @@
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+/>
+<section>
+  <h1 class="h1 m-3 fs-3 fw-bold">درخواست کارشناس</h1>
+  <div class="container-fluid">
+    <div class="row justify-content-between">
+
+
+      <div class="col-12 col-md-6">
+        <label for="name" class="form-label">نام</label>
+        <input type="text" id="name" name="name" class="form-control <%=
+        errorFilde.includes('name') ? "border boorder-danger" : "" %>"
+        placeholder="مثلا: بهنام"/>
+        <p class="text-danger"></p>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="phone" class="form-label">شماره</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          class="form-control"
+          placeholder="مثلا: 09944576853"
+        />
+        <p class="text-danger"></p>
+      </div>
+
+      <div class="col-12 m-auto mt-3">
+        <label for="">کارشناس برای کجا میخواهید</label>
+        <div
+          id="map"
+          class="z-0 w-100"
+          style="margin: auto; overflow: hidden; height: 400px; width: 350px"
+        ></div>
+      </div>
+
+      <div class="col-12 m-auto mt-3">
+        <label for="text" class="form-label">توضیحات شما</label>
+        <textarea
+          class="form-control"
+          id="text"
+          name="text"
+          style="height: 150px"
+        ></textarea>
+        <p class="text-danger"></p>
+      </div>
+
+      <div class="col-12 mt-4">
+        <button
+          class="btn btn-outline-primary d-flex align-items-center justify-content-center"
+          id="submit"
+        >
+          درخواست
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <script>
+    let lng = 0;
+    let lat = 0;
+
+    var map = L.map("map").setView([34.256081384716566, 52.94873909124857], 5);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    var marker;
+
+    map.on("click", function (e) {
+      if (marker) {
+        map.removeLayer(marker);
+      }
+
+      marker = L.marker(e.latlng).addTo(map);
+      lng = e.latlng.lng;
+      lat = e.latlng.lat;
+    });
+  </script>
+  <script>
+    try {
+      const btnClose = document.getElementById("btn-close");
+      const prog = document.getElementById("prog");
+      const boxAlert = document.querySelector(".box-alert");
+      btnClose.addEventListener("click", (event) => {
+        event.target.parentElement.style.opacity = 0;
+      });
+  
+      var withProg = 100;
+      prog.style.width = "100%";
+      let time = setInterval(() => {
+        if (withProg <= 0) {
+          prog.parentElement.remove();
+        }
+        withProg--;
+        prog.style.width = `${withProg}%`;
+      }, 80);
+  
+      boxAlert.addEventListener("mousemove", () => {
+        withProg = 100;
+        console.log("muse");
+      });
+    } catch (err) {
+      err = err;
+    }
+  </script>  
+  <script src="/js/karshnas.js"></script>
+</section>

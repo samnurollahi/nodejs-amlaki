@@ -1,0 +1,34 @@
+<section>
+  <div class="container">
+    <dataView data-view="<%= views %>"></dataView>
+    <dataAd data-Ad="<%= adsResult %>"></dataAd>
+    <div class="row justify-content-between">
+      <div class="col-3 p-2 rounded-2 text-bg-info border border-dark shadow">
+        <p class="m-0 fs-3"><%= separate(adToday) %></p>
+        اگهی جدید
+      </div>
+      <div
+        class="col-3 p-2 rounded-2 text-bg-success text-white border border-dark shadow"
+        style="cursor: pointer"
+      >
+        <p class="m-0 fs-3"><%= separate(users) %></p>
+        کاربر
+      </div>
+      <div class="col-3 p-2 rounded-2 text-bg-danger border border-dark shadow">
+        <p class="m-0 fs-3"><%= separate(viewToday) %></p>
+        بازدید جدید
+      </div>
+    </div>
+    <div class="row mt-5">
+      <canvas id="line-chart" height="150px" class="col-12"></canvas>
+    </div>
+  </div>
+
+  <!-- moment -->
+  <script src="/js/jalali-moment.browser.js"></script>
+
+  <!-- cdn chart js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+  <script src="/js/amar.js"></script>
+</section>

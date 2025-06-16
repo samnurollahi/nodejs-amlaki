@@ -1,0 +1,46 @@
+<section>
+  <h1 class="h1 m-3 fs-3 fw-bold">خبرنامه</h1>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-11">
+        <label for="title-send-email">عنوان ایمیل: </label>
+        <input type="text" class="w-100 form-control mb-3" id="title-send-email" placeholder="خبری جدید از سایت پنجره">
+        <label for="title-send-email">متن ایمیل: </label>
+        <div id="editor" class="w-100"></div>
+        <br />
+        <button class="btn btn-primary" id="btnSendEmail">ارسال ایمیل</button>
+      </div>
+      <div class="col-11 table-responsive">
+        <p class="fs-3 fw-bold mt-4">ایمیل های خبرنامه (<%= emails.length %>)</p>
+        <table class="table table-hover table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ایمیل</th>
+              <th scope="col">تاریخ ثبت</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(email of emails) {%>
+            <tr>
+              <td><%= email.email %></td>
+              <td><%= fun(email.createAt) %></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
+  <script src="/js/news.js"></script>
+  <script>
+    ClassicEditor.create(document.querySelector("#editor"), {
+      language: {
+        ui: "fa",
+        imageInsert: false,
+        content: "fa",
+      },
+    });
+  </script>
+</section>

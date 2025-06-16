@@ -1,0 +1,50 @@
+<section class="border-bottom rounded-3 position-sticky z-2 bg-body shadow-sm">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a
+        class="navbar-brand text-center text-primary font-amin user-select-none fs-2 logo"
+        href="/"
+        style="transition: 0.5s"
+        >پنجره</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarText"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav m-auto mb-2 mb-lg-0 font-vazir">
+          <li class="menu-item">
+            <a class="menu-item menu-item nav-link <%= path == '/sell' ? 'active' : '' %>" href="/sell?"
+              >اگهی های فروش</a
+            >
+          </li>
+          <li class="menu-item">
+            <a class="menu-item menu-item nav-link <%= path == '/rent' ? 'active' : '' %>" href="/rent?"
+              >اگهی های اجاره</a
+            >
+          </li>
+          <li class="menu-item">
+            <a class="menu-item menu-item nav-link <%= path == '/tamas' ? 'active' : '' %>" href="/tamasBaMa"
+              >تماس با ما</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <a
+        href="/dashboard"
+        class="navbar-text text-decoration-none font-vazir rounded-2 border btn-create-ad user-select-none"
+      >
+        <%= isLogin ? "داشبورد" : "ورود / ثبت نام"%>
+      </a>
+    </div>
+  </nav>
+  <script src="/js/menu.js"></script>
+</section>

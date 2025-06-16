@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.rtl.min.css" />
+
+    <!-- fonts -->
+    <link rel="stylesheet" href="/css/amin.css" />
+    <link rel="stylesheet" href="/css/vazir.css" />
+
+    <!-- menu -->
+    <link rel="stylesheet" href="/css/menu.css" />
+
+    <!-- google icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <% if(path == '/') {%>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/index.js" defer></script>
+    <% } %>
+  </head>
+  <body>
+    <%- include('../inc/menu.ejs') %>
+
+    <section style="margin-top: 140px" class="font-vazir">
+      <link rel="stylesheet" href="/css/dashboardUser.css" />
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-11 col-md-3">
+            <div
+              class="p-2 rounded-2"
+              style="
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                position: sticky;
+                top: 150px;
+              "
+            >
+              <div class="d-flex p-3 border-bottom">
+                <span
+                  class="d-flex align-items-center justify-content-center bg-light rounded-circle user-select-none"
+                  style="width: 50px; height: 50px"
+                >
+                  <%= user.name[0] %>
+                </span>
+                <div class="ms-2">
+                  <p class="m-0"><%= user.name %></p>
+                  <p class="m-0 text-muted" style="font-size: 13px">
+                    <%= user.email %>
+                  </p>
+                </div>
+              </div>
+
+              <a
+                class="menuItem d-flex align-items-center text-decoration-none d-flex link-dark user-select-none border-bottom p-2 <%= path == '/dashboard/counseling' ? 'menuItemActive' : '' %>"
+                style="cursor: pointer"
+                href="/dashboard/counseling"
+              >
+                <span class="material-symbols-outlined fs-3 me-2 mb-0">
+                  support_agent
+                </span>
+                <span class="text-muted"> درخواست های مشاوره </span>
+              </a>
+              <a
+                class="menuItem d-flex align-items-center text-decoration-none d-flex link-dark user-select-none border-bottom p-2 <%= path == '/dashboard/karshnas' ? 'menuItemActive' : '' %>"
+                style="cursor: pointer"
+                href="/dashboard/karshnas"
+              >
+                <span class="material-symbols-outlined fs-3 me-2 mb-0">
+                  mail
+                </span>
+                <span class="text-muted"> درخواست های کارشناس </span>
+              </a>
+              <a
+                class="menuItem d-flex align-items-center text-decoration-none d-flex link-dark user-select-none p-2"
+                style="cursor: pointer"
+                href="/dashboard/logout"
+              >
+                <span class="material-symbols-outlined fs-3 me-2 text-danger">
+                  logout
+                </span>
+                <span class="text-muted"> خروج </span>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-11 col-md-7 p-1 m-5 m-md-0"><%- body %></div>
+        </div>
+      </div>
+    </section>
+    <br /><br /><br />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- user Controller -->
+    <script src="/js/userController.js"></script>
+  </body>
+</html>

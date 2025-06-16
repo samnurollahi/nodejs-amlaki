@@ -1,0 +1,39 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <h1 class="font-vazir fw-bold fs-2">ریکوئست ها</h1>
+      <div class="table-responsive">
+        <table
+          class="table table-responsive table-bordered table-hover table-striped text-center"
+        >
+          <thead>
+            <tr>
+              <th>ip</th>
+              <th>os</th>
+              <th>صفحه وارد شده</th>
+              <th>صفحه قبلی</th>
+              <th>اکانت</th>
+              <th>نقش</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(item of data) {%>
+            <tr>
+              <th><%= item.ip %></th>
+              <th><%= item.os %></th>
+              <th><%= item.pageView %></th>
+              <th><%= item.pagePrevious %></th>
+              <th><%= item.isLogin ? "دارد" : "ندارد"%></th>
+              <th><%= item.role %></th>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div id="box-loader">
+
+  </div>
+  <script src="/js/requestsBoss.js"></script>
+</section>

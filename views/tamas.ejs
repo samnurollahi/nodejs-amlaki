@@ -1,0 +1,142 @@
+<section class="font-vazir">
+  <div class="container-fluid mt-5">
+    <div class="row justify-content-evenly align-items-start">
+
+      <% if(msg) {%>
+        <div
+          class="alert box-alert alert-success z-2 d-flex py-3 px-4 user-select-none justify-content-between flex-row-reverse align-items-center position-absolute overflow-hidden"
+          style="
+            width: 350px;
+            transition: 0.5s;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+          "
+        >
+          <button class="btn-close" id="btn-close"></button>
+          <div class="d-flex align-items-center">
+            <span
+              class="material-symbols-outlined text-success fs-3 fw-bold me-2"
+            >
+              done
+            </span>
+            <%= msg %>
+          </div>
+          <div
+            id="prog"
+            class="position-absolute bg-success bottom-0 end-0"
+            style="height: 3px"
+          ></div>
+        </div>
+      <% } %>
+      <div class="col-11 col-md-5 shadow border rounded-3">
+        <h1 class="fs-4 text-center text-primary fw-bolder mt-3">
+          پیام به تیم پنجره
+        </h1>
+
+        <form class="row px-5 pt-2 pb-5" method="post" action="/tamasbama">
+          <div class="col-6 mt-3">
+            <label for="nameUser">نام شما</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="مثلا: سام"
+              id="nameUser"
+              class="form-control <%= error.name ? "border border-danger" : "" %>"
+              value="<%= value.name %>"
+            />
+            <p class="text-danger"><%= error.name ? error.name.msg : "" %></p>
+          </div>
+
+          <div class="col-6 mt-3">
+            <label for="emailUser">ایمیل شما</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="مثلا: XXX@gmail.com"
+              id="emailUser"
+              class="form-control <%= error.email ? "border border-danger" : "" %>"
+              value="<%= value.email %>"
+            />
+            <p class="text-danger"><%= error.email ? error.email.msg  : "" %></p>
+          </div>
+
+          <div class="col-12 mt-3">
+            <label for="textUser">سخن شما</label>
+            <textarea
+              name="text"
+              id="textUser"
+              cols="30"
+              rows="10"
+              placeholder="مثلا: جالبه :)"
+              class='form-control <%= error.text ? "border border-danger" : "" %>'
+            ><%= value.text %></textarea>
+            <p class="text-danger"><%= error.text ? error.text.msg : "" %></p>
+          </div>
+
+          <div class="col-12 mt-4">
+            <button
+              class="btn btn-primary d-flex align-items-center justify-content-between px-3 py-1 m-auto"
+            >
+              ارسال <span class="material-symbols-outlined ms-2"> send </span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div
+        class="col-11 col-md-4 text-white-50 shadow border bg-primary p-5 rounded-3 position-sticky mt-5 mt-md-0"
+        style="top: 5rem"
+      >
+        <p class="fs-4 text-center text-white">راه های ارتباطی</p>
+
+        <div>
+          <p class="d-flex align-items-center user-select-none">
+            <span class="material-symbols-outlined text-warning me-1">
+              call
+            </span>
+            تلفن:
+            <a
+              href="tel:09944576853"
+              class="text-decoration-none text-white-50 ms-2"
+              >09944576853</a
+            >
+          </p>
+          <p class="d-flex align-items-center user-select-none">
+            <span class="material-symbols-outlined text-warning me-1">
+              mail
+            </span>
+            ایمیل:
+            <a class="text-decoration-none text-white-50 ms-2">sam@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  try {
+    const btnClose = document.getElementById("btn-close");
+    const prog = document.getElementById("prog");
+    const boxAlert = document.querySelector(".box-alert");
+    btnClose.addEventListener("click", (event) => {
+      event.target.parentElement.style.opacity = 0;
+    });
+
+    var withProg = 100;
+    prog.style.width = "100%";
+    let time = setInterval(() => {
+      if (withProg <= 0) {
+        prog.parentElement.remove();
+      }
+      withProg--;
+      prog.style.width = `${withProg}%`;
+    }, 80);
+
+    boxAlert.addEventListener("mousemove", () => {
+      withProg = 100;
+      console.log("muse");
+    });
+  } catch (err) {
+    err = err;
+  }
+</script>

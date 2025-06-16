@@ -1,0 +1,94 @@
+<h1 class="h1 m-3 fs-3 fw-bold">آگهی های من</h1>
+<% if(ad.length > 0) {%>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-11">
+      <div class="table-responsive">
+        <table
+          class="table table-sm shadow-sm table-striped table-hover align-items-center"
+        >
+          <thead>
+            <th>تاریخ ثبت</th>
+            <th>وضعیت</th>
+            <th title="تعداد کل بازدید های ده روز گذشته">بازدید</th>
+            <th>عملیات</th>
+          </thead>
+          <tbody class="align-middle">
+            <% for(item of ad) {%>
+            <tr>
+              <td><%= fun(item.createAt) %></td>
+              <td><p class="<%= item.acc ? 'text-bg-success' : "text-bg-danger " %>  badge user-select-none"><%= item.acc ? 'تایید شده' : "تایید نشده" %></p></td>
+              <td>
+                <%= viewObj[item.id] %>
+              </td>
+              <td>
+                <a
+                  title="حذف اگهی"
+                  data-id="<%= item.id %>"
+                  class="btn btn-danger m-1 d-inline-flex align-items-center justify-content-center deleteAdvertising"
+                  ><span class="material-symbols-outlined">delete</span></a
+                >
+                <a
+                  title="نمایش"
+                  href="/<%= item.price ? "sell" : "rent" %>/<%= item.id %>"
+                  class="btn btn-warning m-1 d-inline-flex align-items-center justify-content-center"
+                  ><span class="material-symbols-outlined"> article </span></a
+                >
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      <div class="w-100 d-flex align-items-center justify-content-center">
+        <span
+          id="loader-table"
+          class="loader d-none"
+          style="
+            width: 75px;
+            height: 75px;
+            border-width: 10px;
+            margin: auto;
+            text-align: center;
+          "
+        ></span>
+      </div>
+    </div>
+  </div>
+  <!-- moment -->
+  <script src="/js/jalali-moment.browser.js"></script>
+  <!-- js -->
+  <script>
+    const btnDeleteAdvertisings = document.querySelectorAll(".deleteAdvertising")
+
+
+    btnDeleteAdvertisings.forEach((item) => {
+      item.addEventListener("click", (event) => {
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "/dashboard/deleteAd");
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhttp.responseType = "json";
+
+        xhttp.onloadstart = function () {
+          item.innerHTML = '<span class="loader"></span>';
+        };
+        xhttp.onloadend = function () {
+          item.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+
+          if (xhttp.status == 201) {
+            item.parentElement.parentElement.remove();
+          }
+        };
+
+        xhttp.send(JSON.stringify({ id: item.dataset.id }));
+      });
+    });
+
+  </script>
+</div>
+<% }else {%>
+  <p class="fs-1 fw-bold text-center">شما اگهی ثبت نکرده اید</p>
+  <a href="/dashboard/ad" class="text-center d-block">اولین اگهی خود را  بسازید :)</a>
+<% } %>

@@ -1,0 +1,41 @@
+.menuItem {
+  transition: 0.5s;
+}
+.menuItem:hover {
+  background-color: rgb(248, 249, 250) !important;
+  transition: 0.5s;
+}
+.menuItemActive {
+  background-color: rgb(248, 249, 250) !important;
+}
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #fff;
+  border-bottom-color: #000;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+#notifications {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+#notifications:hover {
+  background-color: beige;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

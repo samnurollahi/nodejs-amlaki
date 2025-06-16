@@ -1,0 +1,39 @@
+<section>
+    <div class="container">
+      <div class="row">
+        <h1 class="h1 m-3 fs-3 fw-bold">درخواست های کارشناس</h1>
+        <div class="table-responsive">
+          <table
+            class="table table-responsive table-bordered table-hover table-striped text-center"
+          >
+            <thead>
+              <tr>
+                <th>نام</th>
+                <th>شماره تماس</th>
+                <th>مختصات</th>
+                <th>زمان</th>
+                <th>توضیحات</th>
+                <th>عملیات ها</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(item of data) {%>
+              <tr>
+                <th><%= item.name %></th>
+                <th><%= item.phone %></th>
+                <th><a href="https://www.google.com/maps/search/<%= item.map[0] %>,+<%= item.map[1] %>?">map</a></th>
+                <th><%= funcDate(item.createAt) %></th>
+                <th title="<%= item.text %>"><%= item.text.slice(0, 10) + '...' %></th>
+                <th>
+                    <a href="/dashboard/karshnas/delete/<%= item.id %>" class="badge bg-danger">رد</a>
+                    <a href="/dashboard/karshnas/acc/<%= item.id %>" class="badge bg-success">تایید</a>
+                </th>
+            </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  

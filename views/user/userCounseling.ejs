@@ -1,0 +1,60 @@
+<h1 class="h1 m-3 fs-3 fw-bold">گرفتن مشاوره رایگان</h1>
+<div class="container-fluid">
+  <form
+    action="/dashboard/counseling"
+    method="post"
+    class="row justify-content-center"
+  >
+    <% if(msg) {%>
+    <p class="col-8 alert alert-success"><%= msg %></p>
+    <% } %>
+    <br />
+    <div class="col-5">
+      <label for="name" class="form-label">نام شما</label>
+      <input
+        type="text"
+        class="form-control <%= error.hasOwnProperty('name') ? 'border-danger' : false%>"
+        name="name"
+        id="name"
+        value="<%= dataPost.name ?? user.name  %>"
+      />
+      <p class="text-muted fs-6 mb-0">
+        <%= error.hasOwnProperty("name") ? error.name[0] : "" %>
+      </p>
+    </div>
+
+    <div class="col-5">
+      <label for="phone" class="form-label">شماره مبایل</label>
+      <input
+        type="number"
+        value="<%= dataPost.phone %>"
+        class="form-control <%= error.hasOwnProperty('phone') ? 'border-danger' : false%>"
+        name="phone"
+        id="phone"
+      />
+      <p class="text-muted fs-6 mb-0">
+        <%= error.hasOwnProperty("phone") ? error.phone[0] : "" %>
+      </p>
+    </div>
+
+    <div class="col-10 mt-3">
+      <label for="description">توضیحات</label>
+      <textarea
+        name="description"
+        id="description"
+        value=""
+        class="form-control overflow-auto form-control <%= error.hasOwnProperty('description') ? 'border-danger' : false%>"
+        style="resize: none; height: 150px"
+      >
+<%= dataPost.description %></textarea
+      >
+      <p class="text-muted fs-6 mb-0">
+        <%= error.hasOwnProperty("description") ? error.description[0] : "" %>
+      </p>
+    </div>
+
+    <div class="col-5 mt-4 text-center">
+      <button class="btn btn-primary">ثبت درخواست</button>
+    </div>
+  </form>
+</div>

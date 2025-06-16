@@ -1,0 +1,17 @@
+.btn-create-ad {
+  padding: 7px 30px;
+  outline: none;
+  background-color: transparent;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.btn-create-ad:hover {
+  background-color: #eff1f4;
+}
+.menu-item {
+  transition: 0.5s;
+}
+.menu-item:hover {
+  color: #0d6efd !important;
+}
+/* #0d6efd */

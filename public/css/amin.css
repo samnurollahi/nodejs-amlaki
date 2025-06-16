@@ -1,0 +1,8 @@
+@font-face {
+  font-family: amin;
+  src: url(../font/amin.ttf);
+}
+
+.font-amin {
+  font-family: amin;
+}

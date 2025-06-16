@@ -1,0 +1,75 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <form
+        action="/dashboard/addAdmin"
+        method="post"
+      >
+      <div class="table-responsive">
+        <table
+          class="table table-hover table-bordered table-striped text-center table-responsive"
+        >
+          <thead>
+            <tr>
+              <th>نام ادمین</th>
+              <th>ایمیل ادمین</th>
+              <th>نقش ادمین</th>
+              <th>عملیات ها</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="مثلا: بهنام بازوند"
+                  title="این فیلد مهم نیست میتوانید ان را پر نکنید"
+                />
+              </th>
+              <th>
+                <input
+                  type="text"
+                  name="email"
+                  class="form-control"
+                  placeholder="مثلا: xxx@gmail.com"
+                  id="adminEmail"
+                />
+              </th>
+              <th>
+                <select id="roleAdmin" name="role" class="form-select">
+                  <option value="consultant">مشاور</option>
+                  <option value="admin">ادمین</option>
+                </select>
+              </th>
+              <th>
+                <button
+                  class="btn btn-outline-success"
+                  type="submit"
+                  >
+                  اضافه کرده
+                </button>
+              </th>
+            </tr>
+            <% for(item of admins) {%>
+            <tr>
+              <th><%= item.name %></th>
+              <th><%= item.email %></th>
+              <th><%= item.role == "admin" ? 'ادمین' : 'مشاور' %></th>
+              <th>
+                <a
+                  href="/dashboard/removeAdmin/<%= item.id %>"
+                  class="btn btn-outline-danger"
+                  title="با زدن این گزینه این اکانت تبدیل به یک اکانت عادی میشود"
+                  >برکناری</a
+                >
+              </th>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      </form>
+    </div>
+  </div>
+</section>

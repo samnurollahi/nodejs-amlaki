@@ -1,0 +1,62 @@
+<h1 class="h1 m-3 fs-3 fw-bold">درخواست های مشاوره</h1>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-11">
+      <div class="table-responsive">
+        <table
+          class="table table-sm shadow-sm table-responsive table-striped table-hover"
+        >
+          <thead>
+            <th>اسم فرد</th>
+            <th>شماره فرد</th>
+            <th>تاریخ ثبت</th>
+            <th>توضیحات</th>
+            <th>عملیات</th>
+          </thead>
+          <tbody class="align-middle">
+            <% for(item of data) {%>
+            <tr>
+              <td><%= item.name %></td>
+              <td><%= item.phone %></td>
+              <td><%= fun(item.createAt) %></td>
+              <td title="<%= item.description %>">
+                <%= item.description.slice(0, 7) %>...
+              </td>
+              <td>
+                <a
+                  data-id="<%= item.id %>"
+                  class="btn btn-success m-1 d-inline-flex align-items-center justify-content-center accCounseling"
+                >
+                  <span class="material-symbols-outlined"> done </span>
+                </a>
+                <a
+                  data-id="<%= item.id %>"
+                  class="btn btn-danger m-1 d-inline-flex align-items-center justify-content-center deleteCounseling"
+                  ><span class="material-symbols-outlined">delete</span></a
+                >
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      <div class="w-100 d-flex align-items-center justify-content-center">
+        <span
+          id="loader-table"
+          class="loader d-none"
+          style="
+            width: 75px;
+            height: 75px;
+            border-width: 10px;
+            margin: auto;
+            text-align: center;
+          "
+        ></span>
+      </div>
+    </div>
+  </div>
+  <!-- moment -->
+  <script src="/js/jalali-moment.browser.js"></script>
+  <!-- js -->
+  <script src="/js/counselingAdmin.js"></script>
+</div>
